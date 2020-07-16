@@ -21,7 +21,7 @@ MonoBehaviour:
   m_ShowMode: 4
   m_Title: 
   m_RootView: {fileID: 2}
-  m_MinSize: {x: 950, y: 524}
+  m_MinSize: {x: 950, y: 548}
   m_MaxSize: {x: 10000, y: 10000}
 --- !u!114 &2
 MonoBehaviour:
@@ -45,7 +45,7 @@ MonoBehaviour:
     y: 0
     width: 2560
     height: 997
-  m_MinSize: {x: 950, y: 524}
+  m_MinSize: {x: 950, y: 300}
   m_MaxSize: {x: 10000, y: 10000}
 --- !u!114 &3
 MonoBehaviour:
@@ -112,8 +112,8 @@ MonoBehaviour:
     y: 30
     width: 2560
     height: 947
-  m_MinSize: {x: 709, y: 474}
-  m_MaxSize: {x: 18004, y: 14024}
+  m_MinSize: {x: 713, y: 498}
+  m_MaxSize: {x: 18008, y: 14048}
   vertical: 0
   controlID: 29
 --- !u!114 &6
@@ -168,8 +168,8 @@ MonoBehaviour:
     y: 0
     width: 469
     height: 947
-  m_MinSize: {x: 234, y: 474}
-  m_MaxSize: {x: 10004, y: 14024}
+  m_MinSize: {x: 234, y: 498}
+  m_MaxSize: {x: 10004, y: 14048}
   vertical: 1
   controlID: 70
 --- !u!114 &8
@@ -586,7 +586,7 @@ MonoBehaviour:
       scrollPos: {x: 0, y: 0}
       m_SelectedIDs: 
       m_LastClickedID: 0
-      m_ExpandedIDs: 6815ffff
+      m_ExpandedIDs: d2fbffff
       m_RenameOverlay:
         m_UserAcceptedRename: 0
         m_Name: 
@@ -659,9 +659,9 @@ MonoBehaviour:
     m_IsLocked: 0
   m_FolderTreeState:
     scrollPos: {x: 0, y: 9}
-    m_SelectedIDs: f2850000
-    m_LastClickedID: 34290
-    m_ExpandedIDs: 00000000128300001e8300006e8700002a88000078890000bc8b0000608c0000ea8d0000068f0000448f0000508f000036910000749300004e9800005098000052980000549800005698000000ca9a3b
+    m_SelectedIDs: e82f0000
+    m_LastClickedID: 12264
+    m_ExpandedIDs: 00000000162c0000242c0000b6310000a03200006a3400006c3700005c380000c23c0000003e0000563e0000803e0000e0410000ea440000864a0000884a00008a4a00008c4a00008e4a000000ca9a3b
     m_RenameOverlay:
       m_UserAcceptedRename: 0
       m_Name: 
@@ -689,7 +689,7 @@ MonoBehaviour:
     scrollPos: {x: 0, y: 0}
     m_SelectedIDs: 
     m_LastClickedID: 0
-    m_ExpandedIDs: 00000000128300001e8300006e8700002a88000078890000bc8b0000608c0000ea8d0000068f0000448f0000508f000036910000749300004e98000050980000529800005498000056980000
+    m_ExpandedIDs: 00000000162c0000242c0000b6310000a03200006a3400006c3700005c380000c23c0000003e0000563e0000803e0000e0410000ea440000864a0000884a00008a4a00008c4a00008e4a0000
     m_RenameOverlay:
       m_UserAcceptedRename: 0
       m_Name: 
