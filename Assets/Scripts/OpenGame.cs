@@ -2,7 +2,13 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class OpenGame : MonoBehaviour {
+public enum Scenes
+{
+    Controls = 0,
+    Game = 1
+}
+
+public class OpenGame : MonoBehaviour {    
 
 	// Use this for initialization
 	void Start () {
@@ -13,7 +19,8 @@ public class OpenGame : MonoBehaviour {
 	void Update () {
         if (Input.anyKeyDown)
         {
-            Application.LoadLevel(1);
+            UnityEngine.SceneManagement.SceneManager.LoadScene((int)Scenes.Game);
+            //Application.LoadLevel(1);
         }
 
     }
