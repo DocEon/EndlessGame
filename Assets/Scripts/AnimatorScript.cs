@@ -35,26 +35,26 @@ public class AnimatorScript : MonoBehaviour {
 	
 	// Update is called once per frame
 	void Update () {
-        if (Input.GetButtonDown("WalkSwap"))
-        {
-            print("command recevied");
-            if (walkname == "walk") // max
-            {
-                walkname = "walk2";
-            }
-            else walkname = "walk";
-        }
-        anim.SetInteger("walk", pace);
-        if (isTurning && !anim.GetBool("turning"))
-        {
-            anim.Play("turnright");
-            print("Turning set to" + anim.GetBool("turning"));
-        }
-        else if (!isTurning && anim.GetBool("turning"))
-        {
-            anim.Play(walkname);
-            print("Turning set to" + anim.GetBool("turning"));
-        }
-        else anim.Play(walkname);
+    //    if (Input.GetButtonDown("WalkSwap"))
+    //    {
+    //        print("command recevied");
+    //        if (walkname == "walk") // max
+    //        {
+    //            walkname = "walk2";
+    //        }
+    //        else walkname = "walk";
+    //    }
+    //    anim.SetInteger("walk", pace);
+    //    if (isTurning && !anim.GetBool("turning"))
+    //    {
+    //        anim.Play("turnright");
+    //        print("Turning set to" + anim.GetBool("turning"));
+    //    }
+    //    else if (!isTurning && anim.GetBool("turning"))
+    //    {
+    //        anim.Play(walkname);
+    //        print("Turning set to" + anim.GetBool("turning"));
+    //    }
+    //    else anim.Play(walkname);
     }
 }

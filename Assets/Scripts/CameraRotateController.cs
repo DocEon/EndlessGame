@@ -17,9 +17,9 @@ public class CameraRotateController : MonoBehaviour {
     // Update is called once per frame
     void Update()
     {
-        if (Input.GetKey(KeyCode.LeftArrow) || Input.GetAxis("Horizontal") < -1 * controllerDeadzone)
-            transform.Rotate(-Vector3.up * 200 * Time.deltaTime);
-        else if (Input.GetKey(KeyCode.RightArrow) || Input.GetAxis("Vertical") > controllerDeadzone)
-            transform.Rotate(Vector3.up * 200 * Time.deltaTime);
+        //if (Input.GetKey(KeyCode.LeftArrow) || Input.GetAxis("Horizontal") < -1 * controllerDeadzone)
+        //    transform.Rotate(-Vector3.up * 200 * Time.deltaTime);
+        //else if (Input.GetKey(KeyCode.RightArrow) || Input.GetAxis("Vertical") > controllerDeadzone)
+        //    transform.Rotate(Vector3.up * 200 * Time.deltaTime);
     }
 }

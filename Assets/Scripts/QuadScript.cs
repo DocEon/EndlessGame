@@ -43,15 +43,19 @@ public class QuadScript : MonoBehaviour {
     private string currentSeries;
     private int currentSeriesIndex = -1;
     //24 total series, 1-23.
-    public Camera[] cameraArray;
+    
     string[] seriesArray = new string[] { "W", "WB", "WBR", "WBRY", "BRY", "BY", "Y", "YW", "YWR", "YWRB", "WRB", "RB", "B", "BY", "BYW", "BYWR", "YWR", "WR", "R", "RB", "RBY", "RYBW", "YBW", "BW", "W" };
 
-    bool isCameraAwake (Camera camera)
-    {
-        if (camera.GetComponentInParent<ActorScripts>().isActive) return true;
-        else return false;
 
-    }
+    //this is exactly how I did it basically (including an array of camera-like objects!) but moved it to another class - CameraHandler. this class handles too much atm
+    //public Camera[] cameraArray;
+    //bool isCameraAwake (Camera camera)
+    //{
+    //    if (camera.GetComponentInParent<ActorScripts>().isActive) return true;
+    //    else return false;
+
+    //}
+
     Vector3 nextStep (Vector3 currentPosition)
     {
         if (state == 0)
@@ -146,74 +150,30 @@ public class QuadScript : MonoBehaviour {
         actorList.Add(Blue);
         White.position = A;
         White.GetComponent<ActorScripts>().isActive = true;
-        White.GetComponent<ActorScripts>().nextStep = C; 
-        for (int a = 1; a <= 5; a = a + 1)
-        {
-            cameraArray[a].enabled = false;
-        }
-        cameraArray[0].enabled = true;
+        White.GetComponent<ActorScripts>().nextStep = C;
 
     }
 	
 	// Update is called once per frame
 	void Update () {
         {
-            if (Input.GetKey("escape"))
-                Application.Quit();
-            if (Input.GetButtonDown("SwitchCamera"))
-            {
-                print("Switch camera");
-                int currentCamera = 0;
-                int currentCameraCons = 0;
-                for (int a = 0; a <= 5; a = a + 1)
-                {
-                    if (cameraArray[a].enabled)
-                    {
-                        cameraArray[currentCamera].enabled = false;
-                        currentCameraCons = a;
-                        currentCamera = a;
-                        print(currentCamera);
-                    }
-
-                }
-                if (currentCamera <= 1)
-                {
-                    cameraArray[currentCamera + 1].enabled = true;
-                }
-                else if (currentCamera < 5)
-                {
-                    while (currentCamera < 5)
-                    {
-                        if (isCameraAwake(cameraArray[currentCamera + 1]))
-                        {
-                            cameraArray[currentCamera + 1].enabled = true;
-                            break;
-                        }
-                        else currentCamera += 1;
-                    }
-                }
-                if (currentCamera == 5)
-                {
-                    cameraArray[currentCameraCons].enabled = false;
-                    cameraArray[0].enabled = true;
-                }
+            //if (Input.GetKey("escape"))
+            //    Application.Quit();
+            //if (Input.GetButtonDown("SpeedUp"))
+            //{
+            //    if (speed < 100)
+            //    {
+            //        speed += 1;
+            //    }
+            //}
+            //if (Input.GetButtonDown("SpeedDown"))
+            //{
+            //    if (speed > 1)
+            //    {
+            //        speed -= 1;
+            //    }
                 
-            }
-            if (Input.GetButtonDown("SpeedUp"))
-            {
-                if (speed < 100)
-                {
-                    speed += 1;
-                }
-            }
-            if (Input.GetButtonDown("SpeedDown"))
-            {
-                if (speed > 1)
-                {
-                    speed -= 1;
-                }
-                
-            }
+            //}
             if (howManyLaps == 0)
             {
                 currentSeriesIndex += 1;

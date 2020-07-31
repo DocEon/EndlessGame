@@ -64,6 +64,7 @@
   <ItemGroup>
     <Compile Include="Assets\CameraHandler.cs" />
     <Compile Include="Assets\CameraPosition.cs" />
+    <Compile Include="Assets\CustomEventHandler.cs" />
     <Compile Include="Assets\Mixamo\Magic Pack\Demo\CameraScroll.cs" />
     <Compile Include="Assets\Oculus\AudioManager\Scenes\Scripts\TestScript.cs" />
     <Compile Include="Assets\Oculus\AudioManager\Scripts\Audio\AmbienceEmitter.cs" />

@@ -17,11 +17,11 @@ public class OpenGame : MonoBehaviour {
 	
 	// Update is called once per frame
 	void Update () {
-        if (Input.anyKeyDown)
-        {
-            UnityEngine.SceneManagement.SceneManager.LoadScene((int)Scenes.Game);
-            //Application.LoadLevel(1);
-        }
+        //if (Input.anyKeyDown)
+        //{
+        //    UnityEngine.SceneManagement.SceneManager.LoadScene((int)Scenes.Game);
+        //    //Application.LoadLevel(1);
+        //}
 
     }
 }
