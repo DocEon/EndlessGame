@@ -77,6 +77,7 @@ public class CustomEventHandler : MonoBehaviour
 
     public void UnsubscribeFromEvent(EventType type, Action callback)
     {
+		//TODO: currently you can't unsubscribe from these events ... need to store these actions in a dict or something (gross)
         switch (type)
         {
             case EventType.changeCamera:
@@ -102,16 +103,16 @@ public class CustomEventHandler : MonoBehaviour
 
     private void Awake()
     {
-        var action = new InputAction(type: InputActionType.PassThrough, binding: "*/<Button>");
-        action.performed += OnAnyKeyAction;
-        action.Enable();
+        //var action = new InputAction(type: InputActionType.PassThrough, binding: "*/<Button>");
+        //action.performed += OnAnyKeyAction;
+        //action.Enable();
 
         changeCameraAction.performed += OnCameraChangeAction;
         strengthenLightsAction.performed += OnStrengthenLightsAction;
         weakenLightsAction.performed += OnWeakenLightsAction;
         slowDownAction.performed += OnSlowDownAction;
         speedUpAction.performed += OnSpeedUpAction;
-        //anyKeyAction.performed += OnAnyKeyAction;
+        anyKeyAction.performed += OnAnyKeyAction;
     }
 
     private void OnEnable()
@@ -121,7 +122,7 @@ public class CustomEventHandler : MonoBehaviour
         weakenLightsAction.Enable();
         slowDownAction.Enable();
         speedUpAction.Enable();
-        //anyKeyAction.Enable();
+        anyKeyAction.Enable();
     }
 
     private void OnDisable()
@@ -131,7 +132,7 @@ public class CustomEventHandler : MonoBehaviour
         weakenLightsAction.Disable();
         slowDownAction.Disable();
         speedUpAction.Disable();
-        //anyKeyAction.Disable();
+        anyKeyAction.Disable();
     }
 
     void OnCameraChangeAction(InputAction.CallbackContext context)

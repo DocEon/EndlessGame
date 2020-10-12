@@ -42,7 +42,9 @@ public class QuadScript : MonoBehaviour {
     private int howManyLaps = 0;
     private string currentSeries;
     private int currentSeriesIndex = -1;
-    //24 total series, 1-23.
+	//24 total series, 1-23.
+
+	private bool isGameRunning = false;
     
     string[] seriesArray = new string[] { "W", "WB", "WBR", "WBRY", "BRY", "BY", "Y", "YW", "YWR", "YWRB", "WRB", "RB", "B", "BY", "BYW", "BYWR", "YWR", "WR", "R", "RB", "RBY", "RYBW", "YBW", "BW", "W" };
 
@@ -139,6 +141,14 @@ public class QuadScript : MonoBehaviour {
             return currentPosition;
         }
     }
+
+	public void StartGame() {
+		isGameRunning = true;
+		White.position = A;
+		White.GetComponent<ActorScripts>().isRunning = true;
+		White.GetComponent<ActorScripts>().nextStep = C;
+	}
+
     void Start () {
         Red = gameObject.transform.GetChild(0);
         Yellow = gameObject.transform.GetChild(1);
@@ -148,15 +158,14 @@ public class QuadScript : MonoBehaviour {
         actorList.Add(Yellow);
         actorList.Add(White);
         actorList.Add(Blue);
-        White.position = A;
-        White.GetComponent<ActorScripts>().isActive = true;
-        White.GetComponent<ActorScripts>().nextStep = C;
-
     }
 	
 	// Update is called once per frame
 	void Update () {
         {
+			if (!isGameRunning) {
+				return;
+			}
             //if (Input.GetKey("escape"))
             //    Application.Quit();
             //if (Input.GetButtonDown("SpeedUp"))
@@ -186,9 +195,9 @@ public class QuadScript : MonoBehaviour {
                 {
                     White.position = A;
                     White.LookAt(C);    
-                    if (!White.GetComponent<ActorScripts>().isActive)
+                    if (!White.GetComponent<ActorScripts>().isRunning)
                     {
-                        White.GetComponent<ActorScripts>().isActive = true;
+                        White.GetComponent<ActorScripts>().isRunning = true;
                         White.GetComponent<ActorScripts>().nextStep = C;
                     }
                 }
@@ -196,9 +205,9 @@ public class QuadScript : MonoBehaviour {
                 {
                     Blue.position = C;
                     Blue.LookAt(D);
-                    if (!Blue.GetComponent<ActorScripts>().isActive)
+                    if (!Blue.GetComponent<ActorScripts>().isRunning)
                     {
-                        Blue.GetComponent<ActorScripts>().isActive = true;
+                        Blue.GetComponent<ActorScripts>().isRunning = true;
                         Blue.GetComponent<ActorScripts>().nextStep = D;
                     }
                 }
@@ -206,9 +215,9 @@ public class QuadScript : MonoBehaviour {
                 {
                     Yellow.position = B;
                     Yellow.LookAt(A);
-                    if (!Yellow.GetComponent<ActorScripts>().isActive)
+                    if (!Yellow.GetComponent<ActorScripts>().isRunning)
                     {
-                        Yellow.GetComponent<ActorScripts>().isActive = true;
+                        Yellow.GetComponent<ActorScripts>().isRunning = true;
                         Yellow.GetComponent<ActorScripts>().nextStep = A;
                     }
                 }
@@ -216,30 +225,30 @@ public class QuadScript : MonoBehaviour {
                 {
                     Red.position = D;
                     Red.LookAt(B);
-                    if (!Red.GetComponent<ActorScripts>().isActive)
+                    if (!Red.GetComponent<ActorScripts>().isRunning)
                     {
-                        Red.GetComponent<ActorScripts>().isActive = true;
+                        Red.GetComponent<ActorScripts>().isRunning = true;
                         Red.GetComponent<ActorScripts>().nextStep = B;
                     }
                 }
-                if (White.GetComponent<ActorScripts>().isActive && currentSeries.IndexOf("W") == -1)
+                if (White.GetComponent<ActorScripts>().isRunning && currentSeries.IndexOf("W") == -1)
                 {
-                    White.GetComponent<ActorScripts>().isActive = false;
+                    White.GetComponent<ActorScripts>().isRunning = false;
                     White.position = A1;
                 }
-                if (Yellow.GetComponent<ActorScripts>().isActive && currentSeries.IndexOf("Y") == -1)
+                if (Yellow.GetComponent<ActorScripts>().isRunning && currentSeries.IndexOf("Y") == -1)
                 {
-                    Yellow.GetComponent<ActorScripts>().isActive = false;
+                    Yellow.GetComponent<ActorScripts>().isRunning = false;
                     Yellow.position = B1;
                 }
-                if (Blue.GetComponent<ActorScripts>().isActive && currentSeries.IndexOf("B") == -1)
+                if (Blue.GetComponent<ActorScripts>().isRunning && currentSeries.IndexOf("B") == -1)
                 {
-                    Blue.GetComponent<ActorScripts>().isActive = false;
+                    Blue.GetComponent<ActorScripts>().isRunning = false;
                     Blue.position = C1;
                 }
-                if (Red.GetComponent<ActorScripts>().isActive && currentSeries.IndexOf("R") == -1)
+                if (Red.GetComponent<ActorScripts>().isRunning && currentSeries.IndexOf("R") == -1)
                 {
-                    Red.GetComponent<ActorScripts>().isActive = false;
+                    Red.GetComponent<ActorScripts>().isRunning = false;
                     Red.position = D1;
                 }
 
@@ -281,10 +290,13 @@ public class QuadScript : MonoBehaviour {
 	}
     private void LateUpdate()
     {
+		if (!isGameRunning) {
+			return;
+		}
         float step = speed * Time.deltaTime;
         foreach (Transform actor in actorList)
         {
-            if (actor.GetComponent<ActorScripts>().isActive)
+            if (actor.GetComponent<ActorScripts>().isRunning)
             {
                 if (!actor.GetComponent<AudioSource>().isPlaying)
                 {

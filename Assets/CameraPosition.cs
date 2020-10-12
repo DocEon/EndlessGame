@@ -12,7 +12,7 @@ public class CameraPosition : MonoBehaviour
             ActorScripts script = this.GetComponentInParent<ActorScripts>();
             if(script != null)
             {
-                return script.isActive;
+                return script.isRunning;
             }
 
             return true;

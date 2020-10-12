@@ -57,4 +57,12 @@ public class AnimatorScript : MonoBehaviour {
     //    }
     //    else anim.Play(walkname);
     }
+
+	void LeftFootfall() {
+		//Debug.Log("left footstep");
+	}
+
+	void RightFootfall() {
+		//Debug.Log("right footstep");
+	}
 }
