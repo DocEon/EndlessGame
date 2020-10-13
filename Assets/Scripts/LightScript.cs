@@ -6,9 +6,8 @@ public class LightScript : MonoBehaviour {
     public Light lt;
 	// Use this for initialization
 	void Start () {
-        //just did this in the editor instead
-        //lt = GetComponent<Light>();
-
+		//just did this in the editor instead
+		//lt = GetComponent<Light>();
         CustomEventHandler.sharedInstance.SubscribeToEvent(CustomEventHandler.EventType.strengthenLights, StrengthenLights);
         CustomEventHandler.sharedInstance.SubscribeToEvent(CustomEventHandler.EventType.weakenLights, WeakenLights);
 	}
