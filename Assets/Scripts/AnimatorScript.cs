@@ -3,13 +3,15 @@ using System.Collections.Generic;
 using UnityEngine;
 
 public class AnimatorScript : MonoBehaviour {
-    Animator anim;
     Random r = new Random();
 	public int pace = 0;
 	private bool isAnimating = false;
     public bool isTurning = false;
     string walkname = "walk";
 	private Animator animator;
+	private AudioSource audioSource;
+
+	private string[] audioSources = new string[] { "footfall", "footfall2", "footfall3", "footfall4", "footfall5", "footfall6" };
 
 	public void StartAnimating() {
 		isAnimating = true;
@@ -22,10 +24,9 @@ public class AnimatorScript : MonoBehaviour {
 	// Use this for initialization
 	// next to do - set turning animation based on which direction they're moving. so mirror if it's theo ther way.
 	void Start () {
-        anim = GetComponent<Animator>();
         isTurning = false;
-
-		animator = GetComponentInChildren<Animator>();
+		audioSource = GetComponent<AudioSource>();
+		animator = GetComponent<Animator>();
 		if (animator == null) {
 			Debug.LogError("couldn't find animator for actor! this is bad!");
 		}
@@ -73,17 +74,28 @@ public class AnimatorScript : MonoBehaviour {
     //    else anim.Play(walkname);
     }
 
+	void PlayFootstepClip() {
+		//if (audioSource.isPlaying) {
+		//	return;
+		//}
+
+		Debug.Log("trying to play clip");
+
+		int rand = Random.Range(0, audioSources.Length);
+		string str = audioSources[rand];
+		AudioClip clip = Resources.Load(str) as AudioClip;
+		audioSource.PlayOneShot(clip);
+	}
+
 	void LeftFootfall() {
 		if (isAnimating) {
-			//left footfall: play sound
-			Debug.Log("step left");
+			PlayFootstepClip();
 		}
 	}
 
 	void RightFootfall() {
 		if (isAnimating) {
-			//right footfall: play sound
-			Debug.Log("step right");
+			PlayFootstepClip();
 		}
 	}
 }

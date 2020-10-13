@@ -30,7 +30,10 @@ public class CameraHandler : MonoBehaviour
             OVRHeadsetEmulator emulator = this.GetComponent<OVRHeadsetEmulator>();
             emulator.enabled = false;
         }
-    }
+
+		//TODO: previous + next camera
+		CustomEventHandler.sharedInstance.SubscribeToEvent(CustomEventHandler.EventType.changeCamera, GoToNextCameraPosition);
+	}
 
     // Update is called once per frame
     void Update()

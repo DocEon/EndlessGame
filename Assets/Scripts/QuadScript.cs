@@ -35,10 +35,6 @@ public class QuadScript : MonoBehaviour {
     private Vector3 D1 = new Vector3(-7, -10, 1);
     public float speed;
     public static List<Transform> actorList = new List<Transform>();
-    private Vector3 RedNext;
-    private Vector3 YellowNext;
-    private Vector3 WhiteNext;
-    private Vector3 BlueNext;
     private int howManyLaps = 0;
     private string currentSeries;
     private int currentSeriesIndex = -1;
@@ -47,16 +43,6 @@ public class QuadScript : MonoBehaviour {
 	private bool isGameRunning = false;
     
     string[] seriesArray = new string[] { "W", "WB", "WBR", "WBRY", "BRY", "BY", "Y", "YW", "YWR", "YWRB", "WRB", "RB", "B", "BY", "BYW", "BYWR", "YWR", "WR", "R", "RB", "RBY", "RYBW", "YBW", "BW", "W" };
-
-
-    //this is exactly how I did it basically (including an array of camera-like objects!) but moved it to another class - CameraHandler. this class handles too much atm
-    //public Camera[] cameraArray;
-    //bool isCameraAwake (Camera camera)
-    //{
-    //    if (camera.GetComponentInParent<ActorScripts>().isActive) return true;
-    //    else return false;
-
-    //}
 
     Vector3 GetNextStep (Vector3 currentPosition)
     {
@@ -308,10 +294,6 @@ public class QuadScript : MonoBehaviour {
 
             if (actorScript.isRunning)
             {
-                if (!actor.GetComponent<AudioSource>().isPlaying)
-                {
-                    actor.GetComponent<AudioSource>().Play();
-                }
                 actor.position = Vector3.MoveTowards(actor.position, nextStep, step);
 
                 if (actor.position == nextStep) // here's where we see we're on the next-step. next-state can't get called until we rotate.

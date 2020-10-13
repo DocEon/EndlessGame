@@ -11,6 +11,7 @@ public class ActorScripts : MonoBehaviour {
 	}
     public Vector3 nextStep = new Vector3();
 	public AnimatorScript animatorScript;
+	private AudioSource musicAudioSource;
 
     //public Vector3 lastStep = new Vector3(0, 0, 0);
     public int rotationState = 0;
@@ -27,16 +28,24 @@ public class ActorScripts : MonoBehaviour {
 		_isRunning = true;
 		this.nextStep = nextStep;
 		animatorScript.StartAnimating();
+
+		if (musicAudioSource != null) {
+			musicAudioSource.Play();
+		}
 	}
 
 	public void StopRunning() {
 		_isRunning = false;
 		animatorScript.StopAnimating();
+
+		if (musicAudioSource != null) {
+			musicAudioSource.Pause();
+		}
 	}
 
     // Use this for initialization
     void Start () {
-		
+		musicAudioSource = this.GetComponent<AudioSource>();
 	}
 	
 	// Update is called once per frame
