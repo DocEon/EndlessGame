@@ -146,6 +146,8 @@ public class QuadScript : MonoBehaviour {
 		isGameRunning = true;
 		White.position = A;
 		White.GetComponent<ActorScripts>().StartRunningTowards(C);
+		CustomEventHandler.sharedInstance.SubscribeToEvent(CustomEventHandler.EventType.speedUp, SpeedUp);
+		CustomEventHandler.sharedInstance.SubscribeToEvent(CustomEventHandler.EventType.slowDown, SlowDown);
 	}
 
     void Start () {
@@ -158,6 +160,16 @@ public class QuadScript : MonoBehaviour {
         actorList.Add(White);
         actorList.Add(Blue);
     }
+
+	private void SpeedUp() {
+		speed = speed * 1.5f;
+		speed = Mathf.Min(100, speed);
+	}
+
+	private void SlowDown() {
+		speed = speed / 1.5f;
+		speed = Mathf.Max(0.1f, speed);
+	}
 	
 	// Update is called once per frame
 	void Update () {
