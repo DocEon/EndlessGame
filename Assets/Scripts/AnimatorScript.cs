@@ -79,8 +79,6 @@ public class AnimatorScript : MonoBehaviour {
 		//	return;
 		//}
 
-		Debug.Log("trying to play clip");
-
 		int rand = Random.Range(0, audioSources.Length);
 		string str = audioSources[rand];
 		AudioClip clip = Resources.Load(str) as AudioClip;

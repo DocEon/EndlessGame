@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 
 public class ActorScripts : MonoBehaviour {
-	private bool _isRunning = true;
+	private bool _isRunning = false;
 	public bool isRunning {
 		get {
 			return _isRunning;
