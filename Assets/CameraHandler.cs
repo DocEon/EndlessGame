@@ -34,7 +34,7 @@ public class CameraHandler : MonoBehaviour {
 
 	// Update is called once per frame
 	void Update() {
-		if (!currentCameraPosition.cameraPositionEnabled) {
+		if (currentCameraPosition != null && !currentCameraPosition.cameraPositionEnabled) {
 			GoToNextCameraPosition();
 		}
 	}
