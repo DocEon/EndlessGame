@@ -3,35 +3,44 @@ using System.Collections.Generic;
 using UnityEngine;
 
 public class ActorScripts : MonoBehaviour {
-    public bool isRunning = false;
+	private bool _isRunning = true;
+	public bool isRunning {
+		get {
+			return _isRunning;
+		}
+	}
     public Vector3 nextStep = new Vector3();
-    public Vector3 lastStep = new Vector3(0, 0, 0);
+	public AnimatorScript animatorScript;
+
+    //public Vector3 lastStep = new Vector3(0, 0, 0);
     public int rotationState = 0;
-	private Animator animator;
+
+	public void StartTurning() {
+		animatorScript.isTurning = true;
+	}
+
+	public void StopTurning() {
+		animatorScript.isTurning = false;
+	}
+
+	public void StartRunningTowards(Vector3 nextStep) {
+		_isRunning = true;
+		this.nextStep = nextStep;
+		animatorScript.StartAnimating();
+	}
+
+	public void StopRunning() {
+		_isRunning = false;
+		animatorScript.StopAnimating();
+	}
+
     // Use this for initialization
     void Start () {
-		animator = GetComponent<Animator>();
-		if (animator == null) {
-			Debug.LogError("couldn't find animator for actor! this is bad!");
-		}
+		
 	}
 	
 	// Update is called once per frame
 	void Update () {
 		
-	}
-
-	void LeftFootfall() {
-		if (isRunning) {
-			//left footfall: play sound
-			Debug.Log("step left");
-		}
-	}
-
-	void RightFootfall() {
-		if (isRunning) {
-			//right footfall: play sound
-			Debug.Log("step right");
-		}
 	}
 }

@@ -5,17 +5,32 @@ using UnityEngine;
 public class AnimatorScript : MonoBehaviour {
     Animator anim;
     Random r = new Random();
-    public int pace = 0;
+	public int pace = 0;
+	private bool isAnimating = false;
     public bool isTurning = false;
     string walkname = "walk";
-    // maybe an angle needs to go here?
-    // Use this for initialization
-    // next to do - set turning animation based on which direction they're moving. so mirror if it's theo ther way.
-    void Start () {
+	private Animator animator;
+
+	public void StartAnimating() {
+		isAnimating = true;
+	}
+
+	public void StopAnimating() {
+		isAnimating = false;
+	}
+	// maybe an angle needs to go here?
+	// Use this for initialization
+	// next to do - set turning animation based on which direction they're moving. so mirror if it's theo ther way.
+	void Start () {
         anim = GetComponent<Animator>();
         isTurning = false;
 
-        if (transform.name == "Red")
+		animator = GetComponentInChildren<Animator>();
+		if (animator == null) {
+			Debug.LogError("couldn't find animator for actor! this is bad!");
+		}
+
+		if (transform.name == "Red")
         {
             Random.InitState(1);
         }
@@ -59,10 +74,16 @@ public class AnimatorScript : MonoBehaviour {
     }
 
 	void LeftFootfall() {
-		//Debug.Log("left footstep");
+		if (isAnimating) {
+			//left footfall: play sound
+			Debug.Log("step left");
+		}
 	}
 
 	void RightFootfall() {
-		//Debug.Log("right footstep");
+		if (isAnimating) {
+			//right footfall: play sound
+			Debug.Log("step right");
+		}
 	}
 }

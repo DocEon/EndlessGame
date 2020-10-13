@@ -58,7 +58,7 @@ public class QuadScript : MonoBehaviour {
 
     //}
 
-    Vector3 nextStep (Vector3 currentPosition)
+    Vector3 GetNextStep (Vector3 currentPosition)
     {
         if (state == 0)
         {
@@ -145,8 +145,7 @@ public class QuadScript : MonoBehaviour {
 	public void StartGame() {
 		isGameRunning = true;
 		White.position = A;
-		White.GetComponent<ActorScripts>().isRunning = true;
-		White.GetComponent<ActorScripts>().nextStep = C;
+		White.GetComponent<ActorScripts>().StartRunningTowards(C);
 	}
 
     void Start () {
@@ -197,8 +196,7 @@ public class QuadScript : MonoBehaviour {
                     White.LookAt(C);    
                     if (!White.GetComponent<ActorScripts>().isRunning)
                     {
-                        White.GetComponent<ActorScripts>().isRunning = true;
-                        White.GetComponent<ActorScripts>().nextStep = C;
+						White.GetComponent<ActorScripts>().StartRunningTowards(C);
                     }
                 }
                 if (currentSeries.IndexOf("B") != -1)
@@ -207,8 +205,7 @@ public class QuadScript : MonoBehaviour {
                     Blue.LookAt(D);
                     if (!Blue.GetComponent<ActorScripts>().isRunning)
                     {
-                        Blue.GetComponent<ActorScripts>().isRunning = true;
-                        Blue.GetComponent<ActorScripts>().nextStep = D;
+                        Blue.GetComponent<ActorScripts>().StartRunningTowards(D);
                     }
                 }
                 if (currentSeries.IndexOf("Y") != -1)
@@ -217,8 +214,7 @@ public class QuadScript : MonoBehaviour {
                     Yellow.LookAt(A);
                     if (!Yellow.GetComponent<ActorScripts>().isRunning)
                     {
-                        Yellow.GetComponent<ActorScripts>().isRunning = true;
-                        Yellow.GetComponent<ActorScripts>().nextStep = A;
+                        Yellow.GetComponent<ActorScripts>().StartRunningTowards(A);
                     }
                 }
                 if (currentSeries.IndexOf("R") != -1)
@@ -227,28 +223,27 @@ public class QuadScript : MonoBehaviour {
                     Red.LookAt(B);
                     if (!Red.GetComponent<ActorScripts>().isRunning)
                     {
-                        Red.GetComponent<ActorScripts>().isRunning = true;
-                        Red.GetComponent<ActorScripts>().nextStep = B;
+						Red.GetComponent<ActorScripts>().StartRunningTowards(B);
                     }
                 }
                 if (White.GetComponent<ActorScripts>().isRunning && currentSeries.IndexOf("W") == -1)
                 {
-                    White.GetComponent<ActorScripts>().isRunning = false;
+					White.GetComponent<ActorScripts>().StopRunning();
                     White.position = A1;
                 }
                 if (Yellow.GetComponent<ActorScripts>().isRunning && currentSeries.IndexOf("Y") == -1)
                 {
-                    Yellow.GetComponent<ActorScripts>().isRunning = false;
+					Yellow.GetComponent<ActorScripts>().StopRunning();
                     Yellow.position = B1;
                 }
                 if (Blue.GetComponent<ActorScripts>().isRunning && currentSeries.IndexOf("B") == -1)
                 {
-                    Blue.GetComponent<ActorScripts>().isRunning = false;
+                    Blue.GetComponent<ActorScripts>().StopRunning();
                     Blue.position = C1;
                 }
                 if (Red.GetComponent<ActorScripts>().isRunning && currentSeries.IndexOf("R") == -1)
                 {
-                    Red.GetComponent<ActorScripts>().isRunning = false;
+                    Red.GetComponent<ActorScripts>().StopRunning();
                     Red.position = D1;
                 }
 
@@ -296,50 +291,52 @@ public class QuadScript : MonoBehaviour {
         float step = speed * Time.deltaTime;
         foreach (Transform actor in actorList)
         {
-            if (actor.GetComponent<ActorScripts>().isRunning)
+			ActorScripts actorScript = actor.GetComponent<ActorScripts>();
+			Vector3 nextStep = actorScript.nextStep;
+
+            if (actorScript.isRunning)
             {
                 if (!actor.GetComponent<AudioSource>().isPlaying)
                 {
                     actor.GetComponent<AudioSource>().Play();
                 }
-                actor.position = Vector3.MoveTowards(actor.position, actor.GetComponent<ActorScripts>().nextStep, step);
+                actor.position = Vector3.MoveTowards(actor.position, nextStep, step);
 
-                if (actor.position == actor.GetComponent<ActorScripts>().nextStep) // here's where we see we're on the next-step. next-state can't get called until we rotate.
+                if (actor.position == nextStep) // here's where we see we're on the next-step. next-state can't get called until we rotate.
                 {
-                    if (actor.GetComponent<ActorScripts>().rotationState == 0) // when we first hit the next step.
+                    if (actorScript.rotationState == 0) // when we first hit the next step.
                     {
-                        // figure out the angle we need to turn towards. start rotating.
-                        actor.GetComponent<ActorScripts>().rotationState = 1;
+						// figure out the angle we need to turn towards. start rotating.
+						actorScript.rotationState = 1;
                     }
-                    else if (actor.GetComponent<ActorScripts>().rotationState == 1) // should be rotating
+                    else if (actorScript.rotationState == 1) // should be rotating
                     {
-                        // rotate
-                        // if is done rotating, then set rotationState = 2. Else rotate. 
-                        actor.GetComponent<AnimatorScript>().isTurning = true;
-                        Vector3 relativePos = (nextStep(actor.GetComponent<ActorScripts>().nextStep) - actor.position);
+						// rotate
+						// if is done rotating, then set rotationState = 2. Else rotate. 
+						actorScript.StartTurning();
+                        Vector3 relativePos = (GetNextStep(nextStep) - actor.position);
                         Quaternion rotation = Quaternion.LookRotation(relativePos);
                         actor.rotation = Quaternion.Lerp(actor.rotation, rotation, step*1.5f);
-                        Vector3 dirFromAtoB = (nextStep(actor.GetComponent<ActorScripts>().nextStep) - actor.position).normalized;
+                        Vector3 dirFromAtoB = (GetNextStep(nextStep) - actor.position).normalized;
                         float dotProd = Vector3.Dot(dirFromAtoB, actor.forward);
                         
                         if (dotProd > 0.99)
                         {
-                            actor.LookAt(actor.GetComponent<ActorScripts>().nextStep);
-                            actor.GetComponent<ActorScripts>().rotationState = 2;   
+                            actor.LookAt(nextStep);
+							actorScript.rotationState = 2;   
                         }
                         
                     }
-                    else if (actor.GetComponent<ActorScripts>().rotationState == 2) 
+                    else if (actorScript.rotationState == 2) 
                     {
-                        actor.GetComponent<ActorScripts>().lastStep = actor.GetComponent<ActorScripts>().nextStep;
-                        actor.GetComponent<ActorScripts>().nextStep = nextStep(actor.position);
+						//actorScript.lastStep = nextStep;
+						actorScript.nextStep = GetNextStep(actor.position);
                        // actor.LookAt(actor.GetComponent<ActorScripts>().nextStep);
                         nextState = true;
-                        actor.GetComponent<AnimatorScript>().isTurning = false;
-                        actor.position = Vector3.MoveTowards(actor.position, actor.GetComponent<ActorScripts>().nextStep, step);
-                        actor.GetComponent<ActorScripts>().rotationState = 0;
+						actorScript.StopTurning();
+                        actor.position = Vector3.MoveTowards(actor.position, actorScript.nextStep, step);
+						actorScript.rotationState = 0;
                     }
-
                 }
             }
         }
